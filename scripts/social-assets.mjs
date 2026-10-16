@@ -1,0 +1,21 @@
+import sharp from 'sharp';
+import opentype from 'opentype.js';
+import{mkdir,readFile,writeFile}from'node:fs/promises';
+await mkdir('public/social',{recursive:true});
+await mkdir('public/icons',{recursive:true});
+async function font(path){const b=await readFile(path);return opentype.parse(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength))}
+const bold=await font('C:/Windows/Fonts/arialbd.ttf'),regular=await font('C:/Windows/Fonts/arial.ttf');
+const text=(value,x,y,size,color='#006da9',weight=bold)=>`<path fill="${color}" d="${weight.getPath(value,x,y,size).toPathData(2)}"/>`;
+const background=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="#edf9ff"/><path d="M690 35C803-20 923 24 944 101S1046 84 1135 140 1153 331 1200 377V585H543C496 505 544 446 601 382S541 211 612 158 622 72 690 35Z" fill="#49a7d1"/><path d="M0 571Q202 520 437 560T835 569 1200 551V630H0Z" fill="#fff"/>${text('Saúde para',56,220,66)}${text('uma vida',56,292,66)}${text('mais feliz.',56,366,70,'#ff8a00')}<rect x="56" y="410" width="273" height="48" rx="24" fill="#ff8a00"/>${text('Cuidado em todas as fases',78,440,18,'#fff')}${text('Clínica veterinária, banho e tosa.',56,500,22,'#47758f',regular)}${text('Teotônio Vilela  •  Junqueiro / AL',56,600,22,'#006da9')}${text('PETVET CLÍNICA VETERINÁRIA',842,600,13,'#006da9',regular)}</svg>`;
+const logo=await sharp('public/brand-horizontal-blue.svg').resize(280,84).png().toBuffer();
+const pets=await sharp('public/pets/hero-pets.png').resize(670,495,{fit:'contain',background:'#00000000'}).png().toBuffer();
+const image=sharp(Buffer.from(background)).composite([{input:logo,left:51,top:39},{input:pets,left:530,top:58}]);
+await image.clone().png().toFile('public/social/petvet-compartilhar-v1.png');
+await image.clone().jpeg({quality:91,mozjpeg:true}).toFile('public/social/petvet-compartilhar-v1.jpg');
+const symbol=await readFile('public/brand-symbol.svg','utf8');
+const icon=Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 256 256"><rect width="256" height="256" rx="51" fill="#007fab"/>${symbol.replace(/<svg[^>]*>|<\/svg>|<title[^>]*>.*?<\/title>/g,'')}</svg>`);
+await writeFile('public/icons/petvet.svg',icon);
+for(const size of [48,180,192,512])await sharp(icon).resize(size,size).png().toFile(`public/icons/petvet-${size}.png`);
+await sharp('public/brand-horizontal-blue.svg').resize(1000,300).png().toFile('public/icons/petvet-logo.png');
+await writeFile('public/site.webmanifest',JSON.stringify({name:'PetVet Clínica Veterinária',short_name:'PetVet',lang:'pt-BR',start_url:'/',display:'browser',background_color:'#eff9ff',theme_color:'#007da8',icons:[{src:'/icons/petvet-192.png',sizes:'192x192',type:'image/png'},{src:'/icons/petvet-512.png',sizes:'512x512',type:'image/png'}]},null,2));
+console.log('Sharing banner: 1200×630, PNG/JPEG; favicon and Apple icon ready.');

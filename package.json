@@ -1,0 +1,25 @@
+{
+  "name": "petvet",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "node scripts/build.mjs",
+    "preview": "vite preview --host 0.0.0.0",
+    "test:e2e": "node scripts/model-test.mjs",
+    "assets:social": "node scripts/social-assets.mjs",
+    "test:seo": "node scripts/seo-test.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "opentype.js": "^2.0.0",
+    "sharp": "^0.35.5",
+    "vite": "^7.1.0"
+  }
+}

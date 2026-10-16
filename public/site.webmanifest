@@ -1,0 +1,21 @@
+{
+  "name": "PetVet Clínica Veterinária",
+  "short_name": "PetVet",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#eff9ff",
+  "theme_color": "#007da8",
+  "icons": [
+    {
+      "src": "/icons/petvet-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/petvet-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
