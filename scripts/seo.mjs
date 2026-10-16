@@ -1,7 +1,10 @@
 import{loadEnv}from'vite';
 const env=loadEnv(process.env.NODE_ENV||'production',process.cwd(),'');
 const raw=(process.env.SITE_URL||env.SITE_URL||'').trim();
-export const siteUrl=raw?new URL(raw).origin+'/':null;
+const parsed=raw?new URL(raw):null;
+if(parsed){parsed.search='';parsed.hash='';parsed.pathname=parsed.pathname.replace(/\/?$/,'/')}
+export const siteUrl=parsed?.href||null;
+export const basePath=parsed?.pathname||'/';
 if(raw&&!/^https?:\/\//.test(raw))throw Error('SITE_URL precisa ser uma URL completa, como https://seu-dominio.com.br');
 export const title='PetVet | Veterinária em Teotônio Vilela e Junqueiro';
 export const description='Clínica veterinária em Teotônio Vilela e Junqueiro, AL. Consultas, vacinas, cirurgias, exames, raio X, ultrassom e banho e tosa. Agende pelo WhatsApp.';

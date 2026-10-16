@@ -1,6 +1,6 @@
 ﻿# SEO e prÃ©via de compartilhamento â€” PetVet
 
-DomÃ­nio confirmado: https://pedroaugustoftw.github.io. Configurado em `.env` por `SITE_URL`; `.env.local` pode sobrescrevÃª-lo. Nenhuma alteraÃ§Ã£o de domÃ­nio ou publicaÃ§Ã£o foi feita por esta tarefa.
+DomÃ­nio confirmado: https://pedroaugustoftw.github.io/PetVet. Configurado em `.env` por `SITE_URL`; `.env.local` pode sobrescrevÃª-lo. Nenhuma alteraÃ§Ã£o de domÃ­nio ou publicaÃ§Ã£o foi feita por esta tarefa.
 
 ## O que foi implementado
 
@@ -15,10 +15,10 @@ DomÃ­nio confirmado: https://pedroaugustoftw.github.io. Configurado em `.env` 
 ## Publicar
 
 1. Execute `npm run build` e `npm run test:seo`.
-2. Publique o conteÃºdo de `dist` na hospedagem que atende https://pedroaugustoftw.github.io. O comando de build Ã© `npm run build`; a pasta pÃºblica Ã© `dist`.
+2. Publique o conteÃºdo de `dist` na hospedagem que atende https://pedroaugustoftw.github.io/PetVet. O comando de build Ã© `npm run build`; a pasta pÃºblica Ã© `dist`.
 3. Confira estes endereÃ§os pÃºblicos: `/`, `/robots.txt`, `/sitemap.xml`, `/social/petvet-compartilhar-v1.jpg`.
 4. Deixe a pÃ¡gina e a imagem acessÃ­veis sem login, desafios ou bloqueios para robÃ´s. A imagem precisa responder como JPEG e o HTML precisa conter as tags Open Graph jÃ¡ no cÃ³digo-fonte.
-5. No Google Search Console da propriedade do domÃ­nio, envie `https://pedroaugustoftw.github.io/sitemap.xml` e solicite a inspeÃ§Ã£o da pÃ¡gina inicial. A indexaÃ§Ã£o e a aparÃªncia final dependem do Google.
+5. No Google Search Console da propriedade do domÃ­nio, envie `https://pedroaugustoftw.github.io/PetVet/sitemap.xml` e solicite a inspeÃ§Ã£o da pÃ¡gina inicial. A indexaÃ§Ã£o e a aparÃªncia final dependem do Google.
 6. Aplicativos podem manter prÃ©vias antigas em cache. Depois da publicaÃ§Ã£o, use o depurador de compartilhamento da plataforma para solicitar nova leitura quando disponÃ­vel. Alterar o nome do arquivo do banner exige atualizar `scripts/seo.mjs` e fazer novo build.
 
 ## ManutenÃ§Ã£o
@@ -35,4 +35,5 @@ DomÃ­nio confirmado: https://pedroaugustoftw.github.io. Configurado em `.env` 
 - Google: https://developers.google.com/search/docs/appearance/snippet
 - Open Graph: https://ogp.me/
 - Schema: https://schema.org/VeterinaryCare
+
 

@@ -2,11 +2,11 @@
 
 Landing page baseada nas referências desktop e mobile, com formas orgânicas, marca e ícones SVG e pets fotorrealistas em PNG transparente.
 
-Site público: https://pedroaugustoftw.github.io/
+Site público: https://pedroaugustoftw.github.io/PetVet/
 
 Código-fonte: https://github.com/pedroaugustoftw/PetVet
 
-A publicação no endereço raiz é feita pelo workflow `Deploy PetVet to GitHub Pages` em https://github.com/pedroaugustoftw/pedroaugustoftw.github.io/actions. Ele busca a branch `main` deste repositório. Após novos commits aqui, execute esse workflow para publicar a versão atualizada.
+A publicação é feita automaticamente pelo workflow `Deploy PetVet to GitHub Pages` deste repositório a cada push na branch `main`. O endereço raiz redireciona para `/PetVet/`.
 
 ## Executar
 

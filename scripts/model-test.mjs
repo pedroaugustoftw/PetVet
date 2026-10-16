@@ -1,12 +1,13 @@
 import{chromium}from'@playwright/test';
 import assert from'node:assert/strict';
+import{basePath}from'./seo.mjs';
 import{mkdir}from'node:fs/promises';
 await mkdir('test-results',{recursive:true});
 const browser=await chromium.launch({headless:true});
 const page=await browser.newPage({viewport:{width:1536,height:1024},reducedMotion:'reduce'});
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
 try{
- await page.goto(process.env.TEST_URL||'http://127.0.0.1:5174/',{waitUntil:'networkidle'});
+ await page.goto(process.env.TEST_URL||'http://127.0.0.1:5174'+basePath,{waitUntil:'networkidle'});
  assert.equal(await page.locator('.service-card').count(),6);
  assert.equal(await page.locator('header .action').count(),0);
  await page.getByRole('button',{name:'Consulta veterinária'}).click();
