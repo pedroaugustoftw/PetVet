@@ -18,7 +18,7 @@ try{
  await page.getByRole('button',{name:'Tenho interesse'}).click();
  assert.equal(await page.locator('#reason').inputValue(),'Raio X e ultrassom');
  await page.getByRole('textbox',{name:'Seu nome',exact:true}).fill('Marina');
- await page.getByRole('textbox',{name:'Telefone (WhatsApp)',exact:true}).fill('(82) 90000-0000');
+ assert.equal(await page.locator('#phone').count(),0);
  await page.getByRole('combobox',{name:'Tipo de pet'}).selectOption('Gato');
  await page.getByRole('combobox',{name:'Unidade de atendimento'}).selectOption('Junqueiro');
  await page.getByRole('button',{name:'Solicitar agendamento'}).click();
@@ -33,6 +33,13 @@ try{
  assert(await page.locator('footer').innerText().then(t=>t.includes('Teotônio Vilela')&&t.includes('Junqueiro')&&t.includes('31.032.434/0001-05')&&!t.includes('Arapiraca')));
  await page.getByRole('button',{name:'Editar informações'}).click();
  assert.equal(await page.locator('#tutor-name').inputValue(),'Marina');
+ await page.getByRole('combobox',{name:'Qual serviço precisa?'}).selectOption('Emergência');
+ assert(await page.locator('.emergency-note').isVisible());
+ await page.getByRole('button',{name:'Solicitar agendamento'}).click();
+ const emergency=new URL(await page.getByRole('link',{name:'Continuar no WhatsApp',exact:true}).getAttribute('href'));
+ assert(emergency.searchParams.get('text').includes('[EMERGÊNCIA]'));
+ assert(!emergency.searchParams.get('text').includes('Meu telefone'));
+ await page.getByRole('button',{name:'Editar informações'}).click();
  await page.getByRole('button',{name:'Próximo serviço'}).click();
  assert(await page.locator('.service-card').first().innerText().then(t=>t.includes('Vacinação')));
  await page.getByRole('button',{name:'Serviço anterior'}).click();
@@ -45,6 +52,7 @@ try{
   assert(await page.locator('img').evaluateAll(imgs=>imgs.every(i=>i.complete&&i.naturalWidth>0)));
   if(width>800){assert(await page.locator('header nav').evaluate(nav=>{const r=nav.getBoundingClientRect();return Math.abs(r.left+r.width/2-innerWidth/2)<2&&[...nav.querySelectorAll('a')].every(a=>getComputedStyle(a).textTransform==='uppercase')}),`Centered uppercase header ${width}`)}
   if(width<=800){
+   assert(await page.locator('#tutor-name').evaluate(input=>parseFloat(getComputedStyle(input).fontSize)>=16),`Readable mobile form ${width}`);
    assert(await page.locator('.life-mobile').evaluate(section=>{const text=section.querySelector('[role="tabpanel"]'),t=text.getBoundingClientRect(),options=section.querySelector('.life-options').getBoundingClientRect(),wave=section.querySelector('.wave').getBoundingClientRect();return t.top>=options.bottom&&t.bottom<=wave.top&&parseFloat(getComputedStyle(text).fontSize)>=10}),`Life-stage text clear of wave ${width}`);
    assert(await page.locator('.booking').evaluate(form=>{const f=form.getBoundingClientRect(),dog=form.querySelector('.booking-dog').getBoundingClientRect(),button=form.querySelector('.submit').getBoundingClientRect();return dog.left>=f.left&&dog.right<=f.right+1&&dog.bottom<=button.top+1&&button.right<=f.right&&button.left>=f.left}),`Booking image/button layout ${width}`);
   }
